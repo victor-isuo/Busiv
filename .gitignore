@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+data/busiv_store/
+data/briefings.jsonl
+data/*.jsonl
+.DS_Store
+*.db

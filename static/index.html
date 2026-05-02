@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Busiv — Autonomous Business Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+
+/* ═══════════════════════════════════════════════════
+BUSIV 2.0 · AUTONOMOUS INTELLIGENCE COMMAND
+───────────────────────────────────────────────────
+Concept: Dark-precision intelligence terminal
+Palette: Deep navy-black · Electric cyan · Amber
+Type: Chakra Petch → display / brand
+Plus Jakarta Sans → body
+JetBrains Mono → data / terminal
+═══════════════════════════════════════════════════ */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+/* ── Backgrounds ── */
+--bg: #06080f;
+--bg2: #090d18;
+--bg3: #0c1220;
+--surface: #101828;
+--surface2: #16213a;
+--surface3: #1d2d4a;
+
+/* ── JS-compatibility aliases (old variable names) ── */
+--paper: #06080f;
+--paper2: #090d18;
+--paper3: #16213a;
+--ink: #dce4f0;
+--ink2: #b4c2d6;
+--ink3: #7f98b8;
+--ink-lt: #4e6480;
+--rule: rgba(0,220,248,.09);
+--rule2: rgba(0,220,248,.04);
+--burgundy: #e64545;
+--burg2: #cc2e2e;
+--gold: #f0a030;
+--gold2: #fbbf24;
+--forest: #1cb87e;
+--navy: #00d0f0;
+--amber: #f0a030;
+
+/* ── Category colours ── */
+--cat-reg: #e64545;
+--cat-prod: #00d0f0;
+--cat-mkt: #1cb87e;
+--cat-hire: #f0a030;
+
+/* ── Accent system ── */
+--accent: #00d0f0;
+--accent-glow: rgba(0,208,240,.18);
+--accent-dim: rgba(0,208,240,.07);
+--accent-border: rgba(0,208,240,.18);
+
+/* ── Typography ── */
+--serif: 'Chakra Petch', sans-serif;
+--sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+--mono: 'JetBrains Mono', monospace;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+background:var(--bg);
+color:var(--ink);
+font-family:var(--sans);
+font-size:14px;
+line-height:1.6;
+min-height:100vh;
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+
+/* Faint grid overlay */
+body::before{
+content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+background-image:
+linear-gradient(rgba(0,208,240,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,208,240,.03) 1px, transparent 1px);
+background-size:52px 52px;
+}
+
+/* Atmospheric top wash */
+body::after{
+content:'';position:fixed;top:0;left:0;right:0;height:320px;
+z-index:0;pointer-events:none;
+background:radial-gradient(ellipse 80% 100% at 50% -10%, rgba(0,80,140,.14), transparent);
+}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-border)}
+
+/* ── ANIMATIONS ── */
+@keyframes tickerMove {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes spin {to{transform:rotate(360deg)}}
+@keyframes blink {0%,100%{opacity:1}45%,55%{opacity:.12}}
+@keyframes slideDown {from{max-height:0;opacity:0}to{max-height:160px;opacity:1}}
+@keyframes fadeUp {from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glowPulse {0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ═══════════════════════════════════════════════════
+BREAKING ALERT
+═══════════════════════════════════════════════════ */
+.breaking-alert{
+display:none;
+background:linear-gradient(90deg, rgba(230,69,69,.96), rgba(190,34,34,.96));
+border-bottom:1px solid rgba(230,69,69,.35);
+overflow:hidden;
+position:relative;
+z-index:30;
+}
+
+.breaking-alert.visible{display:block;animation:slideDown .35s ease both}
+
+.breaking-inner{
+display:flex;align-items:center;
+max-width:1400px;margin:0 auto;
+padding:10px 28px;gap:16px;
+}
+
+.breaking-label{
+font-family:var(--mono);font-size:8px;font-weight:700;
+letter-spacing:.28em;text-transform:uppercase;
+background:rgba(255,255,255,.14);color:#fff;
+padding:3px 11px;flex-shrink:0;
+border:1px solid rgba(255,255,255,.22);
+}
+
+.breaking-text{
+font-family:var(--sans);font-weight:500;
+font-size:13px;color:rgba(255,255,255,.95);line-height:1.45;
+}
+
+/* ═══════════════════════════════════════════════════
+MASTHEAD
+═══════════════════════════════════════════════════ */
+.masthead{
+position:relative;z-index:10;
+background:linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 100%);
+border-bottom:1px solid var(--surface2);
+padding:0 28px;
+}
+
+/* Glowing rule under masthead */
+.masthead::after{
+content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent 5%,var(--accent) 40%,var(--accent) 60%,transparent 95%);
+opacity:.2;pointer-events:none;
+}
+
+.masthead-inner{max-width:1400px;margin:0 auto}
+
+.masthead-top{
+display:flex;align-items:flex-start;justify-content:space-between;
+padding:22px 0 18px;gap:24px;
+}
+
+/* ── Brand ── */
+.masthead-brand{display:flex;flex-direction:column;gap:5px}
+
+.masthead-name{
+font-family:var(--serif);font-weight:700;
+font-size:clamp(38px,5.5vw,64px);
+letter-spacing:.05em;line-height:1;
+color:var(--ink);
+}
+
+.masthead-name em{
+color:var(--accent);font-style:normal;
+text-shadow:0 0 24px rgba(0,208,240,.45);
+animation:glowPulse 3s ease infinite;
+}
+
+.masthead-subtitle{
+font-family:var(--mono);
+font-size:clamp(7px,1.1vw,9px);
+letter-spacing:.3em;text-transform:uppercase;
+color:var(--accent);opacity:.65;
+}
+
+.masthead-subline{
+font-family:var(--sans);font-weight:400;
+font-size:clamp(10px,1.1vw,12px);
+color:var(--ink-lt);letter-spacing:.01em;
+}
+
+/* ── Controls ── */
+.masthead-right{
+display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+padding-top:4px;
+}
+
+.masthead-date{
+font-family:var(--mono);font-size:10px;
+color:var(--ink3);letter-spacing:.05em;
+}
+
+.masthead-status{
+display:flex;align-items:center;gap:8px;
+font-family:var(--mono);font-size:8px;
+color:var(--forest);letter-spacing:.18em;text-transform:uppercase;
+}
+
+.status-light{
+width:7px;height:7px;border-radius:50%;
+background:var(--forest);
+box-shadow:0 0 8px var(--forest);
+animation:blink 2.8s ease infinite;
+flex-shrink:0;
+}
+
+.masthead-actions{display:flex;gap:8px;align-items:center}
+
+/* Chamfered corner buttons */
+.action-btn{
+font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+text-transform:uppercase;padding:9px 20px;
+border:1px solid var(--surface3);background:var(--surface);
+color:var(--ink3);cursor:pointer;transition:all .2s ease;
+clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));
+}
+
+.action-btn:hover{
+background:var(--surface2);color:var(--ink);
+border-color:var(--accent-border);
+}
+
+.action-btn.primary{
+background:rgba(0,208,240,.09);
+color:var(--accent);border-color:var(--accent-border);
+}
+
+.action-btn.primary:hover{
+background:rgba(0,208,240,.16);
+box-shadow:0 0 18px rgba(0,208,240,.14);
+}
+
+.action-btn:disabled{opacity:.3;cursor:not-allowed}
+
+/* ── TICKER ── */
+.ticker-row{
+border-top:1px solid var(--surface2);
+padding:9px 0;
+display:flex;align-items:center;
+overflow:hidden;
+}
+
+.ticker-label{
+font-family:var(--mono);font-size:8px;letter-spacing:.26em;
+text-transform:uppercase;color:var(--accent);
+background:var(--accent-dim);border:1px solid var(--accent-border);
+padding:4px 13px;flex-shrink:0;margin-right:16px;
+}
+
+.ticker-track{flex:1;overflow:hidden;position:relative}
+
+.ticker-track::before,
+.ticker-track::after{
+content:'';position:absolute;top:0;bottom:0;width:48px;z-index:1;pointer-events:none;
+}
+.ticker-track::before{left:0;background:linear-gradient(90deg,var(--bg3),transparent)}
+.ticker-track::after {right:0;background:linear-gradient(270deg,var(--bg2),transparent)}
+
+.ticker-inner{
+display:inline-flex;
+animation:tickerMove 30s linear infinite;
+white-space:nowrap;
+}
+
+.ticker-item{
+display:inline-flex;align-items:center;gap:10px;
+padding:0 22px;border-right:1px solid var(--surface2);
+font-family:var(--mono);font-size:10px;
+}
+
+.ticker-co {font-weight:500;color:var(--ink2);letter-spacing:.03em}
+.ticker-sig {color:var(--burgundy);font-size:9px}
+.ticker-sig.green{color:var(--forest)}
+.ticker-sig.blue {color:var(--navy)}
+
+/* ═══════════════════════════════════════════════════
+MAIN WRAPPER
+═══════════════════════════════════════════════════ */
+.wrapper{
+position:relative;z-index:2;
+max-width:1400px;margin:0 auto;
+padding:0 28px;
+}
+
+/* Section divider */
+.section-rule{
+display:flex;align-items:center;gap:14px;
+padding:18px 0 15px;
+}
+
+.section-rule-title{
+font-family:var(--mono);font-size:9px;letter-spacing:.3em;
+text-transform:uppercase;color:var(--accent);opacity:.65;flex-shrink:0;
+}
+
+.section-rule-line{
+flex:1;height:1px;
+background:linear-gradient(90deg,var(--accent-border),transparent);
+}
+
+/* ═══════════════════════════════════════════════════
+LEAD AREA
+═══════════════════════════════════════════════════ */
+.lead-area{
+display:grid;
+grid-template-columns:1fr 284px;
+gap:0;
+border:1px solid var(--surface2);
+background:var(--bg2);
+position:relative;
+}
+
+/* Corner reticles */
+.lead-area::before,
+.lead-area::after{
+content:'';position:absolute;z-index:4;
+width:14px;height:14px;
+}
+
+.lead-area::before{
+top:-1px;left:-1px;
+border-top:2px solid var(--accent);
+border-left:2px solid var(--accent);
+}
+
+.lead-area::after{
+bottom:-1px;right:-1px;
+border-bottom:2px solid var(--accent);
+border-right:2px solid var(--accent);
+}
+
+.lead-story{
+padding:26px 30px;
+border-right:1px solid var(--surface2);
+}
+
+.lead-kicker{
+font-family:var(--mono);font-size:8px;letter-spacing:.26em;
+text-transform:uppercase;color:var(--accent);opacity:.75;
+margin-bottom:14px;
+display:flex;align-items:center;gap:14px;
+}
+
+.lead-kicker::after{
+content:'';flex:1;height:1px;
+background:linear-gradient(90deg,var(--accent-border),transparent);
+}
+
+.lead-headline{
+font-family:var(--serif);font-weight:700;
+font-size:clamp(20px,2.6vw,34px);
+letter-spacing:-.01em;line-height:1.22;
+color:var(--ink);margin-bottom:16px;
+}
+
+.lead-deck{
+font-family:var(--sans);font-weight:400;
+font-size:15px;color:var(--ink3);
+line-height:1.78;margin-bottom:18px;
+padding-left:18px;
+border-left:2px solid var(--accent);opacity:.9;
+}
+
+.lead-body{
+font-family:var(--sans);font-size:13px;color:var(--ink-lt);line-height:1.88;
+}
+
+.lead-meta{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+
+.lead-tag{
+font-family:var(--mono);font-size:8px;letter-spacing:.14em;
+text-transform:uppercase;padding:4px 12px;
+border:1px solid var(--surface3);color:var(--ink-lt);
+background:var(--surface);
+}
+
+/* Sidebar */
+.lead-sidebar{
+padding:22px 22px;
+display:flex;flex-direction:column;
+}
+
+.stat-block{
+border-bottom:1px solid var(--surface2);
+padding:16px 0;
+}
+
+.stat-block:first-child{padding-top:0}
+.stat-block:last-child {border-bottom:none}
+
+.stat-label{
+font-family:var(--mono);font-size:8px;letter-spacing:.2em;
+text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px;
+}
+
+.stat-value{
+font-family:var(--serif);font-weight:700;font-size:34px;
+letter-spacing:-.02em;color:var(--accent);line-height:1;
+}
+
+.stat-note{
+font-family:var(--sans);font-size:11px;color:var(--ink-lt);margin-top:5px;
+}
+
+.schedule-item{
+display:flex;justify-content:space-between;align-items:baseline;
+padding:8px 0;border-bottom:1px solid var(--surface2);
+}
+
+.schedule-item:last-child{border-bottom:none}
+.sched-name{font-family:var(--sans);font-size:12px;color:var(--ink3)}
+.sched-time{font-family:var(--mono);font-size:10px;color:var(--accent);opacity:.7}
+
+/* ═══════════════════════════════════════════════════
+SIGNALS GRID
+═══════════════════════════════════════════════════ */
+.signals-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:0;
+border:1px solid var(--surface2);
+border-top:none;
+}
+
+.signal-col{
+padding:20px 18px 22px;
+border-right:1px solid var(--surface2);
+position:relative;
+transition:background .2s ease;
+}
+
+.signal-col:last-child{border-right:none}
+.signal-col:hover{background:rgba(0,208,240,.02)}
+
+/* Category top accent bar */
+.signal-col::before{
+content:'';position:absolute;top:0;left:0;right:0;height:2px;
+background:var(--cat-color, var(--accent));opacity:.55;
+}
+
+.signal-head{
+margin-bottom:15px;padding-bottom:12px;
+border-bottom:1px solid var(--surface2);
+}
+
+.signal-cat{
+font-family:var(--mono);font-size:8px;letter-spacing:.26em;
+text-transform:uppercase;color:var(--cat-color, var(--accent));
+}
+
+.signal-count{
+font-family:var(--serif);font-weight:700;font-size:28px;
+color:var(--ink);line-height:1;margin-top:6px;
+}
+
+.signal-summary{
+font-family:var(--sans);font-size:11px;
+color:var(--ink-lt);line-height:1.72;margin-bottom:14px;
+}
+
+/* Finding items */
+.finding-item{
+padding:12px 0;border-bottom:1px solid var(--surface2);
+animation:fadeUp .3s ease both;
+}
+
+.finding-item:last-child{border-bottom:none}
+
+.fi-headline{
+font-family:var(--sans);font-weight:600;
+font-size:12px;color:var(--ink2);
+line-height:1.38;margin-bottom:6px;
+}
+
+.fi-body{
+font-family:var(--sans);font-size:11px;
+color:var(--ink-lt);line-height:1.72;margin-bottom:8px;
+}
+
+.fi-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.fi-sig-badge{
+font-family:var(--mono);font-size:7px;letter-spacing:.16em;
+padding:2px 8px;border:1px solid;text-transform:uppercase;
+}
+
+.fi-sig-badge.HIGH {color:#e64545;border-color:rgba(230,69,69,.28);background:rgba(230,69,69,.06)}
+.fi-sig-badge.MEDIUM{color:#f0a030;border-color:rgba(240,160,48,.28);background:rgba(240,160,48,.06)}
+.fi-sig-badge.LOW {color:#1cb87e;border-color:rgba(28,184,126,.28);background:rgba(28,184,126,.06)}
+
+.fi-source{
+font-family:var(--mono);font-size:9px;color:var(--ink-lt);
+text-decoration:none;transition:color .15s;
+}
+
+.fi-source:hover{color:var(--accent)}
+
+.signal-empty{
+font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+color:rgba(78,100,128,.38);text-align:center;padding:28px 0;
+}
+
+/* ═══════════════════════════════════════════════════
+COMPANIES ACTIVE
+═══════════════════════════════════════════════════ */
+.companies-section{
+padding:16px 0 20px;
+border-top:1px solid var(--surface2);
+}
+
+.companies-label{
+font-family:var(--mono);font-size:8px;letter-spacing:.26em;
+text-transform:uppercase;color:var(--ink-lt);margin-bottom:14px;
+}
+
+.companies-row{display:flex;flex-wrap:wrap;gap:8px}
+
+.company-tag{
+font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.06em;
+padding:5px 14px;
+border:1px solid var(--surface3);color:var(--ink3);background:var(--surface);
+transition:all .2s;cursor:default;
+}
+
+.company-tag:hover{
+background:var(--accent-dim);color:var(--accent);border-color:var(--accent-border);
+}
+
+/* ═══════════════════════════════════════════════════
+HISTORY TABLE
+═══════════════════════════════════════════════════ */
+.history-section{padding:4px 0 40px}
+
+table.hist{
+width:100%;border-collapse:collapse;
+border:1px solid var(--surface2);
+}
+
+table.hist th{
+font-family:var(--mono);font-size:8px;letter-spacing:.18em;
+text-transform:uppercase;color:var(--ink-lt);
+padding:11px 16px;text-align:left;
+border-bottom:1px solid var(--surface2);
+background:var(--surface);
+}
+
+table.hist td{
+font-family:var(--sans);font-size:12px;color:var(--ink3);
+padding:12px 16px;
+border-bottom:1px solid rgba(0,208,240,.035);
+}
+
+table.hist tr:hover td{background:var(--surface)}
+table.hist tr:last-child td{border-bottom:none}
+
+.hist-link{
+color:var(--accent);cursor:pointer;text-decoration:none;
+font-family:var(--sans);font-weight:600;font-size:12px;
+transition:opacity .15s;
+}
+
+.hist-link:hover{opacity:.65}
+
+/* ═══════════════════════════════════════════════════
+LOADER
+═══════════════════════════════════════════════════ */
+.loader-wrap{
+grid-column:1/-1;padding:60px;text-align:center;
+}
+
+.loader-ring{
+width:28px;height:28px;
+border:2px solid var(--surface3);
+border-top-color:var(--accent);
+border-radius:50%;
+animation:spin .65s linear infinite;
+margin:0 auto 14px;
+box-shadow:0 0 14px rgba(0,208,240,.18);
+}
+
+.loader-text{
+font-family:var(--mono);font-size:10px;
+color:var(--ink-lt);letter-spacing:.12em;
+}
+
+/* ═══════════════════════════════════════════════════
+FOOTER
+═══════════════════════════════════════════════════ */
+.footer{
+background:var(--bg3);
+border-top:1px solid var(--surface2);
+padding:18px 28px;
+display:flex;justify-content:space-between;align-items:center;
+gap:12px;flex-wrap:wrap;
+position:relative;
+z-index:2;
+}
+
+.footer::before{
+content:'';position:absolute;top:-1px;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent 5%,var(--accent-border) 40%,var(--accent-border) 60%,transparent 95%);
+}
+
+.footer-brand{
+font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-lt);
+}
+
+.footer-brand span{color:var(--accent)}
+
+.footer-note{
+font-family:var(--mono);font-size:8px;letter-spacing:.14em;
+text-transform:uppercase;color:var(--surface3);
+}
+
+/* ══════════════════════════════════════
+RESPONSIVE
+══════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media(max-width:1100px){
+.signals-grid{grid-template-columns:1fr 1fr}
+.signal-col:nth-child(2){border-right:none}
+.signal-col:nth-child(3),
+.signal-col:nth-child(4){border-top:1px solid var(--surface2)}
+.signal-col:nth-child(4){border-right:none}
+.lead-area{grid-template-columns:1fr}
+.lead-story{border-right:none}
+.lead-sidebar{border-top:1px solid var(--surface2)}
+}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+.masthead{padding:0 16px}
+.masthead-top{flex-direction:column;align-items:flex-start;gap:16px}
+.masthead-right{align-items:flex-start;width:100%}
+.masthead-actions{flex-wrap:wrap;gap:6px;width:100%}
+.action-btn{flex:1;min-width:120px;text-align:center;min-height:42px;padding:10px 12px}
+.wrapper{padding:0 16px}
+.signals-grid{grid-template-columns:1fr}
+.signal-col{border-right:none;border-top:1px solid var(--surface2)}
+.signal-col:first-child{border-top:none}
+.ticker-row{padding:8px 0}
+.footer{flex-direction:column;text-align:center;gap:8px;padding:16px}
+.lead-area::before,
+.lead-area::after{display:none}
+.lead-story{padding:20px 18px}
+.lead-sidebar{padding:18px}
+.lead-headline{font-size:clamp(18px,5.5vw,28px)}
+.stat-value{font-size:28px}
+.masthead-name{font-size:clamp(32px,9vw,52px)}
+}
+
+/* ── Small phone ── */
+@media(max-width:480px){
+.masthead-subline{display:none}
+.lead-story{padding:16px}
+.lead-sidebar{padding:14px 16px}
+.stat-value{font-size:24px}
+.section-rule-title{font-size:7.5px;letter-spacing:.22em}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+BREAKING ALERT
+════════════════════════════════════════════════ -->
+<div class="breaking-alert" id="breakingAlert">
+<div class="breaking-inner">
+<span class="breaking-label">Priority Alert</span>
+<span class="breaking-text" id="breakingText"></span>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+MASTHEAD
+════════════════════════════════════════════════ -->
+<header class="masthead">
+<div class="masthead-inner">
+<div class="masthead-top">
+
+<div class="masthead-brand">
+<div class="masthead-name">Busi<em>v</em></div>
+<div class="masthead-subtitle">Autonomous Business Intelligence</div>
+<div class="masthead-subline">Demonstrated on Nigerian fintech — configurable for any domain</div>
+</div>
+
+<div class="masthead-right">
+<div class="masthead-date" id="mastheadDate">Loading…</div>
+<div class="masthead-status">
+<div class="status-light" id="statusLight"></div>
+<span id="statusText">Connecting</span>
+</div>
+<div class="masthead-actions">
+<button class="action-btn" onclick="triggerIngestion()" id="ingestBtn">↓ Ingest Feeds</button>
+<button class="action-btn primary" onclick="triggerSynthesis()" id="synthBtn">⚡ Generate Briefing</button>
+</div>
+</div>
+
+</div>
+
+<!-- Ticker -->
+<div class="ticker-row">
+<span class="ticker-label">Live</span>
+<div class="ticker-track">
+<div class="ticker-inner" id="tickerInner">
+<!-- populated by JS -->
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+MAIN CONTENT
+════════════════════════════════════════════════ -->
+<div class="wrapper">
+
+<div class="section-rule">
+<span class="section-rule-title">Today's Intelligence Briefing</span>
+<div class="section-rule-line"></div>
+</div>
+
+<!-- LEAD AREA -->
+<div class="lead-area" id="leadArea">
+<div class="loader-wrap">
+<div class="loader-ring"></div>
+<div class="loader-text">Retrieving latest briefing…</div>
+</div>
+</div>
+
+<!-- SIGNALS -->
+<div class="section-rule" style="margin-top:24px">
+<span class="section-rule-title">Signal Intelligence</span>
+<div class="section-rule-line"></div>
+</div>
+
+<div class="signals-grid" id="signalsGrid">
+<!-- populated by JS -->
+</div>
+
+<!-- COMPANIES -->
+<div class="companies-section" id="companiesSection" style="display:none">
+<div class="companies-label">Companies Active in This Edition</div>
+<div class="companies-row" id="companiesRow"></div>
+</div>
+
+<!-- HISTORY -->
+<div class="section-rule">
+<span class="section-rule-title">Previous Editions</span>
+<div class="section-rule-line"></div>
+</div>
+
+<div class="history-section">
+<table class="hist">
+<thead>
+<tr>
+<th>Date</th>
+<th>Headline</th>
+<th>Articles</th>
+<th>Alert</th>
+</tr>
+</thead>
+<tbody id="historyBody">
+<tr>
+<td colspan="4" style="padding:20px 16px;font-style:italic;color:var(--ink-lt)">
+No previous editions.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div><!-- /wrapper -->
+
+<!-- ═══════════════════════════════════════════════
+FOOTER
+════════════════════════════════════════════════ -->
+<footer class="footer">
+<div class="footer-brand"><span>Busiv</span> · Autonomous Business Intelligence</div>
+<div class="footer-note">AI-generated briefings · Not financial advice · Lagos, Nigeria</div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+JAVASCRIPT — Logic preserved exactly as original
+════════════════════════════════════════════════ -->
+<script>
+const API = window.location.origin;
+
+const CAT_COLORS = {
+regulatory: '#e64545',
+product: '#00d0f0',
+market: '#1cb87e',
+hiring: '#f0a030',
+};
+
+const CAT_LABELS = {
+regulatory: 'Regulatory',
+product: 'Product',
+market: 'Market',
+hiring: 'Hiring',
+};
+
+const WATCHLIST = [
+'Flutterwave','Moniepoint','Paystack','Kuda Bank',
+'Cowrywise','PiggyVest','Carbon Nigeria','Risevest','OPay','PalmPay',
+];
+
+// ── Masthead date ─────────────────────────────────────────────────────────────
+function setMastheadDate(){
+const d = new Date();
+const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+document.getElementById('mastheadDate').textContent =
+d.toLocaleDateString('en-NG', opts);
+}
+setMastheadDate();
+
+// ── Ticker ────────────────────────────────────────────────────────────────────
+function buildTicker(companies){
+const items = (companies || WATCHLIST).map((co,i) => {
+const signals = ['Regulatory','Product','Market','Hiring'];
+const cls = ['','green','blue',''][i % 4];
+return `<span class="ticker-item">
+<span class="ticker-co">${co}</span>
+<span class="ticker-sig ${cls}">● ${signals[i % 4]}</span>
+</span>`;
+}).join('');
+const inner = document.getElementById('tickerInner');
+// Duplicate for seamless loop
+inner.innerHTML = items + items;
+}
+buildTicker();
+
+// ── Status ────────────────────────────────────────────────────────────────────
+async function checkStatus(){
+try{
+const res = await fetch(`${API}/health`);
+const data = await res.json();
+document.getElementById('statusText').textContent =
+data.ready ? 'Live · Autonomous Pipeline Active' : 'Initialising…';
+if(!data.ready) setTimeout(checkStatus, 3000);
+} catch(e){ setTimeout(checkStatus, 5000); }
+}
+checkStatus();
+
+// ── Load latest briefing ──────────────────────────────────────────────────────
+async function loadLatest(){
+try{
+const res = await fetch(`${API}/briefings/latest`);
+if(res.status === 404){
+document.getElementById('leadArea').innerHTML = `
+<div style="grid-column:1/-1;padding:32px 0;">
+<div style="font-family:var(--serif);font-style:italic;font-size:18px;
+color:var(--ink-lt);margin-bottom:10px;">
+No briefings generated yet.
+</div>
+<div style="font-family:var(--sans);font-size:13px;color:var(--ink-lt)">
+Click <strong>⚡ Generate Briefing</strong> above to create your first intelligence edition.
+</div>
+</div>`;
+renderEmptySignals();
+return;
+}
+const b = await res.json();
+renderBriefing(b);
+} catch(e){
+document.getElementById('leadArea').innerHTML =
+`<div style="padding:24px 0;font-family:var(--serif);font-style:italic;color:var(--ink-lt)">
+Could not connect to intelligence service.
+</div>`;
+}
+}
+
+function renderBriefing(b){
+const alert = b.priority_alert || {};
+
+// Breaking alert
+if(alert.has_alert && alert.alert_text){
+document.getElementById('breakingAlert').classList.add('visible');
+document.getElementById('breakingText').textContent = alert.alert_text;
+}
+
+// Lead area
+const articleCount = b.article_count || 0;
+const genAt = b.generated_at
+? new Date(b.generated_at).toLocaleString('en-NG',{timeZone:'Africa/Lagos',
+hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})
+: '';
+
+// Build sidebar stats
+const sections = b.sections || {};
+const totalFindings = Object.values(sections)
+.reduce((n,s) => n + (s.findings || []).length, 0);
+const activeSections = Object.values(sections)
+.filter(s => s.has_content).length;
+
+document.getElementById('leadArea').innerHTML = `
+<div class="lead-story">
+<div class="lead-kicker">Intelligence Edition · ${b.date || ''}</div>
+<div class="lead-headline">${b.headline || 'Nigerian Fintech Intelligence Briefing'}</div>
+<div class="lead-deck">${b.executive_summary || ''}</div>
+<div class="lead-meta">
+<span class="lead-tag">${articleCount} Articles Analysed</span>
+${genAt ? `<span class="lead-tag">Generated ${genAt} WAT</span>` : ''}
+${alert.has_alert ? `<span class="lead-tag" style="color:var(--burgundy);border-color:rgba(139,26,26,.3)">⚠ Priority Alert Active</span>` : ''}
+</div>
+</div>
+<div class="lead-sidebar">
+<div class="stat-block">
+<div class="stat-label">Articles Processed</div>
+<div class="stat-value">${articleCount}</div>
+<div class="stat-note">From 9 Nigerian and global sources</div>
+</div>
+<div class="stat-block">
+<div class="stat-label">Signals Detected</div>
+<div class="stat-value">${totalFindings}</div>
+<div class="stat-note">Across ${activeSections} of 4 categories</div>
+</div>
+<div class="stat-block">
+<div class="stat-label">Pipeline Schedule</div>
+<div class="schedule-item">
+<span class="sched-name">Feed Ingestion</span>
+<span class="sched-time">Every 6 hours</span>
+</div>
+<div class="schedule-item">
+<span class="sched-name">Daily Briefing</span>
+<span class="sched-time">07:00 WAT</span>
+</div>
+</div>
+</div>`;
+
+// Signals grid
+renderSignals(sections);
+
+// Companies
+const companies = b.companies_active_today || [];
+if(companies.length){
+document.getElementById('companiesSection').style.display = 'block';
+document.getElementById('companiesRow').innerHTML =
+companies.map(c => `<span class="company-tag">${c}</span>`).join('');
+buildTicker(companies);
+}
+}
+
+function renderSignals(sections){
+const grid = document.getElementById('signalsGrid');
+const order = ['regulatory','product','market','hiring'];
+grid.innerHTML = '';
+
+order.forEach(key => {
+const sec = sections[key] || {};
+const color = CAT_COLORS[key];
+const label = CAT_LABELS[key];
+const findings = sec.findings || [];
+const hasContent = sec.has_content;
+
+const findingsHTML = hasContent && findings.length
+? findings.slice(0,4).map(f => {
+const sig = f.significance || 'MEDIUM';
+const url = f.url || '#';
+const citation = f.citation || '';
+return `<div class="finding-item">
+<div class="fi-headline">${f.title || ''}</div>
+<div class="fi-body">${f.detail || ''}</div>
+<div class="fi-footer">
+<span class="fi-sig-badge ${sig}">${sig}</span>
+${url !== '#'
+? `<a href="${url}" target="_blank" class="fi-source">↗ ${citation}</a>`
+: `<span class="fi-source">${citation}</span>`}
+</div>
+</div>`;
+}).join('')
+: `<div class="signal-empty">No ${label.toLowerCase()} signals today</div>`;
+
+grid.innerHTML += `
+<div class="signal-col" style="--cat-color:${color}">
+<div class="signal-head">
+<div class="signal-cat">${label}</div>
+<div class="signal-count">${findings.length}</div>
+</div>
+${hasContent && sec.summary ? `<div class="signal-summary">${sec.summary}</div>` : ''}
+${findingsHTML}
+</div>`;
+});
+}
+
+function renderEmptySignals(){
+const grid = document.getElementById('signalsGrid');
+const order = ['regulatory','product','market','hiring'];
+grid.innerHTML = order.map(key => `
+<div class="signal-col" style="--cat-color:${CAT_COLORS[key]}">
+<div class="signal-head">
+<div class="signal-cat">${CAT_LABELS[key]}</div>
+<div class="signal-count">0</div>
+</div>
+<div class="signal-empty">No signals yet</div>
+</div>`).join('');
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+async function loadHistory(){
+try{
+const res = await fetch(`${API}/briefings?limit=15`);
+const data = await res.json();
+const tbody = document.getElementById('historyBody');
+
+if(!data.briefings?.length){
+tbody.innerHTML = `<tr><td colspan="4" style="padding:20px 12px;
+font-style:italic;color:var(--ink-lt)">No previous editions.</td></tr>`;
+return;
+}
+
+tbody.innerHTML = data.briefings.map(b => {
+const hl = (b.headline || '').substring(0,70) + (b.headline?.length > 70 ? '…' : '');
+return `<tr>
+<td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${b.date || '—'}</td>
+<td><span class="hist-link" onclick="loadEdition('${b.report_id}')">${hl}</span></td>
+<td style="font-family:var(--mono);font-size:10px">${b.article_count || 0}</td>
+<td style="font-family:var(--mono);font-size:9px;color:${b.has_alert ? 'var(--burgundy)' : 'var(--ink-lt)'}">
+${b.has_alert ? '⚠ YES' : '—'}
+</td>
+</tr>`;
+}).join('');
+} catch(e){ console.error('History failed:', e); }
+}
+
+async function loadEdition(reportId){
+try{
+const res = await fetch(`${API}/briefings/${reportId}`);
+const b = await res.json();
+document.getElementById('breakingAlert').classList.remove('visible');
+document.getElementById('companiesSection').style.display = 'none';
+renderBriefing(b);
+window.scrollTo({top:0, behavior:'smooth'});
+} catch(e){ alert(`Could not load edition: ${e.message}`); }
+}
+
+// ── Triggers ──────────────────────────────────────────────────────────────────
+async function triggerIngestion(){
+const btn = document.getElementById('ingestBtn');
+btn.disabled = true; btn.textContent = 'Ingesting…';
+try{
+await fetch(`${API}/trigger/ingestion`, {method:'POST'});
+btn.textContent = '✓ Ingesting feeds';
+setTimeout(() => { btn.disabled = false; btn.textContent = '↓ Ingest Feeds'; }, 10000);
+} catch(e){ btn.disabled = false; btn.textContent = '↓ Ingest Feeds'; }
+}
+
+async function triggerSynthesis(){
+const btn = document.getElementById('synthBtn');
+btn.disabled = true; btn.textContent = '⚡ Generating Edition…';
+try{
+await fetch(`${API}/trigger/synthesis`, {method:'POST'});
+btn.textContent = '⚡ Edition arriving (~60s)';
+setTimeout(async () => {
+await loadLatest();
+await loadHistory();
+btn.disabled = false;
+btn.textContent = '⚡ Generate Briefing';
+}, 65000);
+} catch(e){ btn.disabled = false; btn.textContent = '⚡ Generate Briefing'; }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+loadLatest();
+loadHistory();
+setInterval(loadLatest, 60000);
+</script>
+</body>
+</html>
+
+
+
+
+
