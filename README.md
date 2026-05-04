@@ -96,6 +96,16 @@ Busiv's regulatory signal layer detects CBN/SEC mentions, classifies them as HIG
 
 ---
 
+## Extending This System
+Busiv is configured for Nigerian fintech intelligence, but the architecture is domain-agnostic. The watchlist, RSS sources, signal categories, and monitored entities are defined in a single configuration file — src/ingestion/sources.py. Pointing this pipeline at a different domain requires only:
+🔹Replacing the RSS feed URLs with relevant sources
+🔹Updating the watchlist with target companies or institutions
+🔹Redefining the signal categories to match the domain
+🔹Adjusting the timezone and schedule to the target region
+The same autonomous pipeline can monitor European fintech regulations, US healthcare policy, SaaS competitive intelligence, or any information domain where scheduled synthesis adds value over manual monitoring.
+
+---
+
 ## Schedule
 
 | Job | Frequency | Time |
