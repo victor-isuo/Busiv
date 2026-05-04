@@ -1,3 +1,4 @@
+
 ---
 title: Busiv
 emoji: 📡
@@ -55,7 +56,7 @@ APScheduler (Africa/Lagos timezone)
 ┌──────────────────────────────────────────┐
 │           Delivery Layer                 │
 │  Dashboard (FastAPI + HTML)              │
-│  Email (Gmail SMTP, HTML formatted)      │
+│  Email (SendGrid HTTP API, HTML format)  │
 │  JSONL persistence for history           │
 └──────────────────────────────────────────┘
 ```
@@ -142,7 +143,7 @@ Both jobs run autonomously. Manual triggers available via dashboard buttons and 
 | LLM | Groq Llama 4 Scout 17B |
 | Ingestion | feedparser + httpx + BeautifulSoup |
 | Vector Store | ChromaDB + all-MiniLM-L6-v2 |
-| Email Delivery | aiosmtplib + Jinja2 HTML templates |
+| Email Delivery | SendGrid HTTP API (httpx) |
 | API | FastAPI 0.136 |
 | Deployment | Hugging Face Spaces (Docker) |
 | Timezone | Africa/Lagos (WAT, UTC+1) |
@@ -167,12 +168,9 @@ LANGCHAIN_API_KEY=your_langsmith_key
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_PROJECT=busiv
 
-# Email delivery (Gmail App Password required)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_gmail@gmail.com
-SMTP_PASSWORD=your_16char_app_password
-EMAIL_FROM=your_gmail@gmail.com
+# Email delivery (SendGrid)
+SENDGRID_API_KEY=your_sendgrid_api_key
+EMAIL_FROM=your_verified_sender@email.com
 EMAIL_TO=recipient@email.com
 
 # Schedule (defaults to 07:00 Lagos time)
@@ -192,17 +190,6 @@ Open `http://localhost:7860`. On startup, Busiv runs an immediate ingestion cycl
 
 ---
 
-## Gmail App Password Setup
-
-Busiv uses Gmail SMTP with an App Password — not your Gmail login password.
-
-1. Enable 2-Factor Authentication on your Gmail account
-2. Go to: Google Account → Security → 2-Step Verification → App Passwords
-3. Create an App Password named "Busiv"
-4. Use the generated 16-character password as `SMTP_PASSWORD` in `.env`
-
----
-
 ## Project Structure
 
 ```
@@ -215,7 +202,7 @@ busiv/
 │   ├── synthesis/
 │   │   └── briefing_agent.py   # LangGraph synthesis pipeline
 │   ├── delivery/
-│   │   ├── email_sender.py     # HTML email via Gmail SMTP
+│   │   ├── email_sender.py     # HTML email via SendGrid HTTP API
 │   │   └── report_store.py     # JSONL persistence
 │   └── api/
 ├── static/
@@ -226,6 +213,12 @@ busiv/
 ├── requirements.txt
 └── README.md
 ```
+
+---
+
+## Production Notes
+
+**Email delivery.** HuggingFace Spaces blocks outbound SMTP on ports 587 and 465. Busiv uses the SendGrid HTTP API as a workaround. Local development can use Gmail SMTP with an app password instead.
 
 ---
 
@@ -248,3 +241,4 @@ Busiv produces AI-synthesised intelligence briefings for informational purposes.
 **Victor Isuo** — Applied LLM Systems Engineer
 
 [GitHub](https://github.com/victor-isuo) · [LinkedIn](https://linkedin.com/in/victor-isuo-a02b65171) · [Industrial AI Copilot](https://victorisuo-industrial-ai-copilot.hf.space) · [AgentEval](https://victorisuo-agenteval.hf.space) · [LexAI](https://victorisuo-lexai.hf.space)
+
