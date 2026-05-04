@@ -1,8 +1,8 @@
 # 📡 Busiv — Autonomous Business Intelligence
 
-An autonomous AI pipeline that monitors Nigerian fintech and regulatory signals, synthesises findings using LangGraph reasoning, and delivers structured intelligence briefings daily — with no human initiation required.
+An autonomous AI pipeline that monitors industry signals, synthesises findings using LangGraph reasoning, and delivers structured intelligence briefings daily — with no human initiation required.
 
-*"Demonstrated on Nigerian fintech — configurable for any domain."*
+Demonstrated on Nigerian fintech — configurable for any domain.
 
 ## 🔴 Live Demo
 
@@ -14,7 +14,7 @@ An autonomous AI pipeline that monitors Nigerian fintech and regulatory signals,
 
 Most business intelligence tools wait for you to ask a question. Busiv runs while you sleep.
 
-Every 6 hours it ingests articles from 9 Nigerian and global fintech sources. Every morning at 07:00 Lagos time it synthesises the last 24 hours of intelligence into a structured briefing — categorised by regulatory, product, market, and hiring signals — and delivers it to a dashboard and email. No user query. No human trigger. The system executes autonomously.
+Every 6 hours it ingests articles from configured sources. Every morning at a scheduled time it synthesises the last 24 hours of intelligence into a structured briefing — categorised by regulatory, product, market, and hiring signals — and delivers it to a dashboard and email. No user query. No human trigger. The system executes autonomously.
 
 This is the third distinct AI engineering pattern in this portfolio:
 
@@ -29,16 +29,16 @@ This is the third distinct AI engineering pattern in this portfolio:
 ## System Architecture
 
 ```
-APScheduler (Africa/Lagos timezone)
+APScheduler (configurable timezone)
         ↓
 ┌──────────────────────────────────────────┐
 │         Ingestion Layer (every 6h)       │
-│  9 RSS feeds · Relevance scoring         │
+│  RSS feeds · Relevance scoring           │
 │  SHA256 deduplication · ChromaDB store   │
 └──────────────────────────────────────────┘
         ↓
 ┌──────────────────────────────────────────┐
-│      LangGraph Synthesis (daily 07:00)   │
+│      LangGraph Synthesis (daily)         │
 │  Load articles node                      │
 │  → Synthesise node (Groq Llama 4 Scout)  │
 │  → Parse structured JSON output          │
@@ -56,19 +56,21 @@ APScheduler (Africa/Lagos timezone)
 
 ## What Makes This Different From a News Aggregator
 
-**Relevance scoring before storage.** Articles are scored against a watchlist of 10 Nigerian fintech companies (Flutterwave, Moniepoint, Paystack, Kuda, Cowrywise, PiggyVest, Carbon, Risevest, OPay, PalmPay) and 4 regulatory bodies (CBN, SEC Nigeria, NDIC, FCCPC). Only articles scoring above threshold are indexed. The synthesis agent never sees noise.
+**Relevance scoring before storage.** Articles are scored against a configurable watchlist of target companies and regulatory bodies. Only articles scoring above threshold are indexed. The synthesis agent never sees noise.
 
-**Four signal categories.** Every finding is classified as Regulatory, Product, Market, or Hiring — not just "news." A CBN circular gets different treatment from a Flutterwave funding round.
+**Four signal categories.** Every finding is classified as Regulatory, Product, Market, or Hiring — not just "news." A policy circular gets different treatment from a funding round.
 
-**Priority alert layer.** When the synthesis agent detects a regulatory or urgent market signal, a breaking alert banner fires at the top of the dashboard. CBN and SEC announcements are the highest-priority signal in Nigerian fintech and most teams monitor them manually.
+**Priority alert layer.** When the synthesis agent detects a regulatory or urgent market signal, a breaking alert banner fires at the top of the dashboard. High-priority signals are surfaced automatically — most teams monitor these manually.
 
 **LangGraph synthesis — not summarisation.** The synthesis node receives all articles from the last 24 hours and produces a structured JSON briefing with findings, citations, significance ratings, and a priority alert determination. This is reasoning across sources, not concatenated summaries.
 
-**Structured output with citations.** Every finding in the briefing cites the source article and URL. Executives can trace every claim to its origin.
+**Structured output with citations.** Every finding in the briefing cites the source article and URL. Decision-makers can trace every claim to its origin.
 
 ---
 
-## Intelligence Coverage
+## Intelligence Coverage — Nigerian Fintech Configuration
+
+The current deployment monitors the Nigerian fintech ecosystem. This configuration can be replaced entirely via `src/ingestion/sources.py`.
 
 **Watchlist — 10 Companies**
 Flutterwave · Moniepoint · Paystack · Kuda Bank · Cowrywise · PiggyVest · Carbon Nigeria · Risevest · OPay · PalmPay
@@ -80,7 +82,7 @@ CBN · SEC Nigeria · NDIC · FCCPC
 
 | Category | What It Tracks |
 |----------|----------------|
-| Regulatory | CBN/SEC policy changes, licensing, circulars, penalties |
+| Regulatory | Policy changes, licensing, circulars, penalties |
 | Product | New features, rates, partnerships, app launches |
 | Market | Funding rounds, expansions, acquisitions, executive moves |
 | Hiring | Engineering surges, new offices, key departures |
@@ -94,20 +96,20 @@ TechCabal · Techpoint Africa · Nairametrics · BusinessDay · The Punch Busine
 
 Nigerian fintechs are acutely sensitive to CBN and SEC policy changes. A new circular can alter KYC requirements, payment limits, licensing conditions, or operational restrictions overnight. Most compliance teams monitor this manually — checking websites, setting Google Alerts that miss context, reading PDFs after the fact.
 
-Busiv's regulatory signal layer detects CBN/SEC mentions, classifies them as HIGH PRIORITY, fires a dashboard alert, and delivers a structured explanation of what changed and why it matters. That is a genuine enterprise pain point being solved automatically.
+Busiv's regulatory signal layer detects high-priority mentions, classifies them automatically, fires a dashboard alert, and delivers a structured explanation of what changed and why it matters. That is a genuine enterprise pain point being solved autonomously.
 
 ---
 
-‎*## Extending This System*
-‎
-‎*Busiv is configured for Nigerian fintech intelligence, but the architecture is domain-agnostic. The watchlist, RSS sources, signal categories, and monitored entities are defined in a single configuration file — `src/ingestion/sources.py`. Pointing this pipeline at a different domain requires only:*
-‎
-‎- *Replacing the RSS feed URLs with relevant sources*
-‎- *Updating the watchlist with target companies or institutions*
-‎- *Redefining the signal categories to match the domain*
-‎- *Adjusting the timezone and schedule to the target region*
-‎
-‎*The same autonomous pipeline can monitor European fintech regulations, US healthcare policy, SaaS competitive intelligence, or any information domain where scheduled synthesis adds value over manual monitoring.*
+## Extending This System
+
+Busiv is configured for Nigerian fintech intelligence, but the architecture is domain-agnostic. The watchlist, RSS sources, signal categories, and monitored entities are defined in a single configuration file — `src/ingestion/sources.py`. Pointing this pipeline at a different domain requires only:
+
+- Replacing the RSS feed URLs with relevant sources
+- Updating the watchlist with target companies or institutions
+- Redefining the signal categories to match the domain
+- Adjusting the timezone and schedule to the target region
+
+The same autonomous pipeline can monitor European fintech regulations, US healthcare policy, SaaS competitive intelligence, or any information domain where scheduled synthesis adds value over manual monitoring.
 
 ---
 
@@ -150,7 +152,7 @@ Both jobs run autonomously. Manual triggers available via dashboard buttons and 
 | Email Delivery | SendGrid HTTP API (httpx) |
 | API | FastAPI 0.136 |
 | Deployment | Hugging Face Spaces (Docker) |
-| Timezone | Africa/Lagos (WAT, UTC+1) |
+| Timezone | Configurable (default: Africa/Lagos, WAT UTC+1) |
 
 ---
 
@@ -166,6 +168,7 @@ pip install -r requirements.txt
 ```
 
 Create `.env`:
+
 ```
 GROQ_API_KEY=your_groq_key
 LANGCHAIN_API_KEY=your_langsmith_key
@@ -177,7 +180,7 @@ SENDGRID_API_KEY=your_sendgrid_api_key
 EMAIL_FROM=your_verified_sender@email.com
 EMAIL_TO=recipient@email.com
 
-# Schedule (defaults to 07:00 Lagos time)
+# Schedule (defaults to 07:00 Lagos time — adjust for your timezone)
 PIPELINE_SCHEDULE_HOUR=7
 PIPELINE_SCHEDULE_MINUTE=0
 PIPELINE_TIMEZONE=Africa/Lagos
@@ -186,6 +189,7 @@ PORT=7860
 ```
 
 Run:
+
 ```bash
 uvicorn main:app --reload --port 7860
 ```
@@ -224,13 +228,15 @@ busiv/
 
 **Email delivery.** HuggingFace Spaces blocks outbound SMTP on ports 587 and 465. Busiv uses the SendGrid HTTP API as a workaround. Local development can use Gmail SMTP with an app password instead.
 
+**Scheduler persistence.** APScheduler runs in-memory on HuggingFace Spaces. If the Space goes cold, the scheduler reinitialises on the next request. Manual triggers via the dashboard ensure a briefing can always be generated on demand.
+
 ---
 
 ## Relationship to Other Portfolio Systems
 
-Busiv completes a three-pattern AI engineering portfolio:
+Busiv represents the autonomous execution pattern in a three-system AI engineering portfolio:
 
-*"I've applied AI reasoning across three distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time, an LLM evaluation platform with CI/CD regression gates that blocks performance regressions automatically, and an autonomous intelligence pipeline that monitors Nigerian fintech daily without human input — synthesising findings and delivering structured briefings on a schedule. Every system is deployed, live, and built for production constraints."*
+*"I've applied AI reasoning across three distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time using hybrid RAG and LangGraph agentic reasoning; an LLM evaluation platform with CI/CD regression gates that automatically blocks performance regressions; and an autonomous intelligence pipeline that monitors a target domain daily without human input — synthesising findings across sources and delivering structured briefings on a schedule. Every system is deployed, live, and built against real production constraints."*
 
 ---
 
@@ -244,4 +250,4 @@ Busiv produces AI-synthesised intelligence briefings for informational purposes.
 
 **Victor Isuo** — Applied LLM Systems Engineer
 
-[GitHub](https://github.com/victor-isuo) · [LinkedIn](https://linkedin.com/in/victor-isuo-a02b65171) · [Industrial AI Copilot](https://victorisuo-industrial-ai-copilot.hf.space) · [AgentEval](https://victorisuo-agenteval.hf.space) 
+[GitHub](https://github.com/victor-isuo) · [LinkedIn](https://linkedin.com/in/victor-isuo-a02b65171) · [Industrial AI Copilot](https://victorisuo-industrial-ai-copilot.hf.space) · [AgentEval](https://victorisuo-agenteval.hf.space) · [Busiv](https://victorisuo-busiv.hf.space)
