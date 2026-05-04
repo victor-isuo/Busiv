@@ -1,13 +1,3 @@
-
----
-title: Busiv
-emoji: 📡
-colorFrom: blue
-colorTo: green
-sdk: docker
-pinned: false
----
-
 # 📡 Busiv — Autonomous Business Intelligence
 
 An autonomous AI pipeline that monitors Nigerian fintech and regulatory signals, synthesises findings using LangGraph reasoning, and delivers structured intelligence briefings daily — with no human initiation required.
