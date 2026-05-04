@@ -227,7 +227,7 @@ busiv/
 
 Busiv completes a three-pattern AI engineering portfolio:
 
-*"I've applied AI reasoning across four distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time, an LLM evaluation platform with CI/CD regression gates that blocks performance regressions automatically, and an autonomous intelligence pipeline that monitors Nigerian fintech daily without human input — synthesising findings and delivering structured briefings on a schedule. Every system is deployed, live, and built for production constraints."*
+*"I've applied AI reasoning across three distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time, an LLM evaluation platform with CI/CD regression gates that blocks performance regressions automatically, and an autonomous intelligence pipeline that monitors Nigerian fintech daily without human input — synthesising findings and delivering structured briefings on a schedule. Every system is deployed, live, and built for production constraints."*
 
 ---
 
