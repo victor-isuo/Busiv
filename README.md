@@ -2,6 +2,8 @@
 
 An autonomous AI pipeline that monitors Nigerian fintech and regulatory signals, synthesises findings using LangGraph reasoning, and delivers structured intelligence briefings daily — with no human initiation required.
 
+*"Demonstrated on Nigerian fintech — configurable for any domain."*
+
 ## 🔴 Live Demo
 
 [https://victorisuo-busiv.hf.space](https://victorisuo-busiv.hf.space)
