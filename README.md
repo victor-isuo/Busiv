@@ -14,13 +14,12 @@ Most business intelligence tools wait for you to ask a question. Busiv runs whil
 
 Every 6 hours it ingests articles from 9 Nigerian and global fintech sources. Every morning at 07:00 Lagos time it synthesises the last 24 hours of intelligence into a structured briefing — categorised by regulatory, product, market, and hiring signals — and delivers it to a dashboard and email. No user query. No human trigger. The system executes autonomously.
 
-This is the fourth distinct AI engineering pattern in this portfolio:
+This is the third distinct AI engineering pattern in this portfolio:
 
 | Pattern | System | Execution Model |
 |---------|--------|----------------|
 | RAG + Agentic Reasoning | Industrial AI Copilot | Human-initiated queries |
 | Evaluation Infrastructure | AgentEval | CI/CD triggered |
-| Multi-role Agent Pipeline | LexAI | Human-initiated uploads |
 | **Autonomous Pipeline** | **Busiv** | **Schedule-driven, no human input** |
 
 ---
@@ -214,9 +213,9 @@ busiv/
 
 ## Relationship to Other Portfolio Systems
 
-Busiv completes a four-pattern AI engineering portfolio:
+Busiv completes a three-pattern AI engineering portfolio:
 
-*"I've applied AI reasoning across four distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time, a legal contract analysis pipeline that processes uploaded documents, an LLM evaluation platform with CI/CD regression gates, and an autonomous intelligence pipeline that monitors Nigerian fintech daily without any human input — synthesising findings and delivering structured briefings on a schedule. Every system is deployed and live."*
+*"I've applied AI reasoning across four distinct execution models: an industrial fault diagnosis platform that responds to engineer queries in real time, an LLM evaluation platform with CI/CD regression gates that blocks performance regressions automatically, and an autonomous intelligence pipeline that monitors Nigerian fintech daily without human input — synthesising findings and delivering structured briefings on a schedule. Every system is deployed, live, and built for production constraints."*
 
 ---
 
@@ -230,5 +229,4 @@ Busiv produces AI-synthesised intelligence briefings for informational purposes.
 
 **Victor Isuo** — Applied LLM Systems Engineer
 
-[GitHub](https://github.com/victor-isuo) · [LinkedIn](https://linkedin.com/in/victor-isuo-a02b65171) · [Industrial AI Copilot](https://victorisuo-industrial-ai-copilot.hf.space) · [AgentEval](https://victorisuo-agenteval.hf.space) · [LexAI](https://victorisuo-lexai.hf.space)
-
+[GitHub](https://github.com/victor-isuo) · [LinkedIn](https://linkedin.com/in/victor-isuo-a02b65171) · [Industrial AI Copilot](https://victorisuo-industrial-ai-copilot.hf.space) · [AgentEval](https://victorisuo-agenteval.hf.space) 
